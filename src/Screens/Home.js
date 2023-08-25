@@ -16,6 +16,12 @@ const data = [
     amount: 89.29,
     date: '2022-01-05',
   },
+  {
+    id: '3',
+    name: 'trousers',
+    amount: 89.29,
+    date: '2022-01-05',
+  },
 ];
 
 const Home = () => {
@@ -23,9 +29,9 @@ const Home = () => {
 
   const dispatch = useDispatch();
 
-  const onpresshandler = ({item}) => {
-    console.log(item.id);
-    dispatch(deleteExpense(item.id));
+  const deletehandler = id => {
+    console.log(id, 'deletehandler');
+    dispatch(deleteExpense(id));
   };
 
   const renderExpenseItem = ({item}) => {
@@ -34,10 +40,12 @@ const Home = () => {
         name={item.name}
         amount={item.amount}
         date={item.date}
-        onSlicepress={onpresshandler({item})}
+        id={item.id}
+        onPressDelete={deletehandler}
       />
     );
   };
+
   return (
     <View>
       <Text>Home</Text>

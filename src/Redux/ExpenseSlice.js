@@ -14,6 +14,12 @@ const initialState = {
       amount: 89.29,
       date: '2022-01-05',
     },
+    {
+      id: '3',
+      name: 'trousers',
+      amount: 89.29,
+      date: '2022-01-05',
+    },
   ],
 };
 
@@ -25,7 +31,9 @@ const expenseSlice = createSlice({
       state.expense.push(action.payload);
     },
     deleteExpense: (state, action) => {
-      state = state.expense.filter(item => item.id !== action.payload);
+      state.expense = state.expense.filter(
+        expense => expense.id !== action.payload,
+      );
     },
   },
 });

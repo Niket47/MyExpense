@@ -3,10 +3,13 @@ import React from 'react';
 import {GlobalStyles} from '../constants/Styles';
 import {useNavigation} from '@react-navigation/native';
 
-const Slice = ({id, name, amount, onSlicepress}) => {
+const Slice = ({id, name, amount, onPressDelete}) => {
   const navigation = useNavigation();
   const onLongPress = () => {
     navigation.navigate('AddExpense', {expenseId: id});
+  };
+  const onSlicepress = () => {
+    onPressDelete(id);
   };
 
   return (

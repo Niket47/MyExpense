@@ -35,8 +35,18 @@ const expenseSlice = createSlice({
         expense => expense.id !== action.payload,
       );
     },
+    updateExpense: (state, action) => {
+      const updatableExpenseIndex = state.expense.findIndex(
+        expense => expense.id === action.payload.id,
+      );
+      const updatableExpense = state.expense[updatableExpenseIndex];
+      state.expense[updatableExpenseIndex] = {
+        ...updatableExpense,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const {addExpense, deleteExpense} = expenseSlice.actions;
+export const {addExpense, deleteExpense, updateExpense} = expenseSlice.actions;
 export default expenseSlice.reducer;

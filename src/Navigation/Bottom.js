@@ -65,7 +65,7 @@ const Bottom = () => {
         name="AddExpense"
         component={AddExpense}
         options={{
-          headerShown: false,
+          headerShown: true,
           presentation: 'modal',
           tabBarIcon: ({size, color}) => {
             return <Icon name="plus-square-o" size={size} color={color} />;

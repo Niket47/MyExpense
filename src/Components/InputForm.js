@@ -4,11 +4,11 @@ import Input from './Input';
 import {GlobalStyles} from '../constants/Styles';
 import CxButton from './CxButton';
 
-const InputForm = ({onSubmit, onCancel}) => {
+const InputForm = ({onSubmit, onCancel, defaultvalues}) => {
   const [inputvalues, setInputvalues] = useState({
-    name: '',
-    amount: '',
-    date: '',
+    name: defaultvalues ? defaultvalues.name : '',
+    amount: defaultvalues ? defaultvalues.amount : '',
+    date: defaultvalues ? defaultvalues.date : '',
     id: Math.random(),
   });
 

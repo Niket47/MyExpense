@@ -1,26 +1,48 @@
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import InputForm from '../Components/InputForm';
 import {useSelector, useDispatch} from 'react-redux';
-import {addExpense} from '../Redux/ExpenseSlice';
+import {addExpense, updateExpense} from '../Redux/ExpenseSlice';
+import {useNavigation} from '@react-navigation/native';
 
-const AddExpense = ({route}) => {
+const AddExpense = ({route, navigation}) => {
+  const selectedvalues = useSelector(state => state.app.expense);
   const dispatch = useDispatch();
+
   const expensesId = route.params?.expenseId;
-  const isEdit = !!expensesId;
-  console.log(expensesId, isEdit);
+  const isEditing = !!expensesId;
+  console.log(expensesId, isEditing, 'params');
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing ? 'edit' : 'add',
+    });
+  }, [navigation, expensesId]);
 
   const onConfirm = expenseData => {
-    console.log(expenseData);
-    dispatch(addExpense(expenseData));
+    // console.log(expenseData);
+    // dispatch(addExpense(expenseData));
+    // navigation.goBack();
+    if (isEditing) {
+      dispatch(updateExpense({...expenseData, id: expensesId}));
+    } else {
+      dispatch(addExpense(expenseData));
+    }
+    navigation.goBack();
   };
   const oncancelhandler = () => {};
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={{textAlign: 'center', fontSize: 19}}>Add Expense</Text>
-        <InputForm onCancel={oncancelhandler} onSubmit={onConfirm} />
+        <Text style={{textAlign: 'center', fontSize: 19}}>
+          {isEditing ? 'edit' : 'Add Expense'}
+        </Text>
+        <InputForm
+          onCancel={oncancelhandler}
+          onSubmit={onConfirm}
+          defaultvalues={selectedvalues}
+        />
       </View>
     </ScrollView>
   );

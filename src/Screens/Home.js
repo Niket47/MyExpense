@@ -3,26 +3,6 @@ import React from 'react';
 import Slice from '../Components/Slice';
 import {useSelector, useDispatch} from 'react-redux';
 import {deleteExpense} from '../Redux/ExpenseSlice';
-const data = [
-  {
-    id: '1',
-    name: 'shoes',
-    amount: 59.99,
-    date: '2021-12-19',
-  },
-  {
-    id: '2',
-    name: 'trousers',
-    amount: 89.29,
-    date: '2022-01-05',
-  },
-  {
-    id: '3',
-    name: 'trousers',
-    amount: 89.29,
-    date: '2022-01-05',
-  },
-];
 
 const Home = () => {
   const alldata = useSelector(state => state.app.expense);

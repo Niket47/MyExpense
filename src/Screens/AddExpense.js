@@ -1,36 +1,63 @@
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import InputForm from '../Components/InputForm';
 import {useSelector, useDispatch} from 'react-redux';
 import {addExpense, updateExpense} from '../Redux/ExpenseSlice';
-import {useNavigation} from '@react-navigation/native';
 
 const AddExpense = ({route, navigation}) => {
-  const selectedvalues = useSelector(state => state.app.expense);
   const dispatch = useDispatch();
 
   const expensesId = route.params?.expenseId;
+
   const isEditing = !!expensesId;
-  console.log(expensesId, isEditing, 'params');
+
+  const selectedvalues = useSelector(state => state.app.expense).find(
+    expense => expense.id === expensesId,
+  );
+
+  console.log(selectedvalues, 'selectedvalues');
+
+  console.log(isEditing, 'params');
 
   useLayoutEffect(() => {
     navigation.setOptions({
       title: isEditing ? 'edit' : 'add',
     });
-  }, [navigation, expensesId]);
+  }, [navigation, isEditing]);
 
   const onConfirm = expenseData => {
-    // console.log(expenseData);
-    // dispatch(addExpense(expenseData));
-    // navigation.goBack();
     if (isEditing) {
       dispatch(updateExpense({...expenseData, id: expensesId}));
+      console.log(expenseData, 'all');
     } else {
       dispatch(addExpense(expenseData));
     }
     navigation.goBack();
   };
-  const oncancelhandler = () => {};
+  const oncancelhandler = () => {
+    navigation.goBack();
+  };
+
+  // const handleAddTask = () => {
+  //   const newTask = {
+  //     title,
+  //     completed: false,
+  //     startDate: selectedStartDate.toString(),
+  //     endDate: selectedEndDate.toString(),
+  //     status: value ? value : 'open',
+  //     id: task ? task.id : Date.now(),
+  //   };
+  //   if (title) {
+  //     task ? dispatch(editTask(newTask)) : dispatch(addTask(newTask));
+  //     setTitle('');
+  //     setSelectedEndDate('');
+  //     setValue('');
+  //     setSelectedEndDate('');
+  //     navigation.navigate('TaskList');
+  //   } else {
+  //     showToast('error', 'Please fill the task');
+  //   }
+  // };
 
   return (
     <ScrollView>

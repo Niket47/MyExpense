@@ -7,12 +7,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {GlobalStyles} from '../constants/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AddExpense from '../Screens/AddExpense';
+import IconBtn from '../Components/IconBtn';
 
 const Tab = createBottomTabNavigator();
-const Bottom = () => {
+const Bottom = ({navigation}) => {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({navigation}) => ({
         headerStyle: {backgroundColor: GlobalStyles.colors.primary200},
         headerTintColor: '#fff',
         tabBarShowLabel: false,
@@ -27,13 +28,21 @@ const Bottom = () => {
           borderRadius: 15,
           backgroundColor: GlobalStyles.colors.black500,
         },
-      }}>
+        headerRight: ({tintColor}) => (
+          <IconBtn
+            icon="plus"
+            color={tintColor}
+            size={24}
+            onpress={() => {
+              navigation.navigate('AddExpense');
+            }}
+          />
+        ),
+      })}>
       <Tab.Screen
         name="Homes"
         component={Home}
         options={{
-          headerShown: false,
-
           tabBarIcon: ({size, color}) => {
             return <Icon name="home" size={size} color={color} />;
           },
@@ -55,7 +64,6 @@ const Bottom = () => {
         component={Wallet}
         options={{
           headerShown: false,
-
           tabBarIcon: ({size, color}) => {
             return <Icon name="area-chart" size={size} color={color} />;
           },
@@ -68,7 +76,16 @@ const Bottom = () => {
           headerShown: true,
           presentation: 'modal',
           tabBarIcon: ({size, color}) => {
-            return <Icon name="plus-square-o" size={size} color={color} />;
+            return (
+              <IconBtn
+                icon="plus"
+                color={color}
+                size={size}
+                onpress={() => {
+                  navigation.navigate('AddExpense');
+                }}
+              />
+            );
           },
         }}
       />

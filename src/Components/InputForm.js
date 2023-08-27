@@ -7,7 +7,7 @@ import CxButton from './CxButton';
 const InputForm = ({onSubmit, onCancel, defaultvalues}) => {
   const [inputvalues, setInputvalues] = useState({
     name: defaultvalues ? defaultvalues.name : '',
-    amount: defaultvalues ? defaultvalues.amount : '',
+    amount: defaultvalues ? defaultvalues.amount.toString() : '',
     date: defaultvalues ? defaultvalues.date : '',
     id: Math.random(),
   });
@@ -27,7 +27,7 @@ const InputForm = ({onSubmit, onCancel, defaultvalues}) => {
       date: inputvalues.date,
       id: inputvalues.id,
     };
-    console.log(expenseData);
+    // console.log(expenseData);
     onSubmit(expenseData);
     setInputvalues('');
   };
@@ -37,7 +37,6 @@ const InputForm = ({onSubmit, onCancel, defaultvalues}) => {
       <Input
         label="Name"
         TextInputConfig={{
-          keyboardType: 'decimal-pad',
           onChangeText: entertext => inputchangehandler('name', entertext),
           value: inputvalues.name,
         }}

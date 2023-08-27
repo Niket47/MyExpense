@@ -7,6 +7,7 @@ const Slice = ({id, name, amount, onPressDelete}) => {
   const navigation = useNavigation();
   const onLongPress = () => {
     navigation.navigate('AddExpense', {expenseId: id});
+    // console.log(expenseId, 'longpress');
   };
   const onSlicepress = () => {
     onPressDelete(id);

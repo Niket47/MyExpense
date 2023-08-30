@@ -5,7 +5,7 @@ import {ActivityIndicator} from 'react-native-paper';
 const Splash = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('SignUp');
+      navigation.navigate('LogIn');
     }, 2000);
   }, []);
   return (

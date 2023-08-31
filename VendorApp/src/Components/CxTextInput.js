@@ -7,8 +7,8 @@ const CxTextInput = ({placeholder, value, onChangeText, type}) => {
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        value={value}
         keyboardType={type ? type : 'default'}
+        value={value}
         onChangeText={text => {
           onChangeText(text);
         }}

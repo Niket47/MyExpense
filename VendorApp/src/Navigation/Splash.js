@@ -1,21 +1,29 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
 import {ActivityIndicator} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('LogIn');
+      checkLogin();
     }, 2000);
   }, []);
+
+  const checkLogin = async () => {
+    const userid = await AsyncStorage.getItem('uuId');
+    if (userid != null) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('LogIn');
+    }
+  };
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      {/* <Text>Splash</Text> */}
       <Image
         style={styles.tinyLogo}
         source={require('../../img/wolf_icon.gif')}
       />
-      {/* <ActivityIndicator size="large" animating={true} color="#7F3DFF" /> */}
     </View>
   );
 };

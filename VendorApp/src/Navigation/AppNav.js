@@ -6,6 +6,8 @@ import Splash from './Splash';
 import {createStackNavigator} from '@react-navigation/stack';
 import SignUp from '../Screens/SignUp';
 import LogIn from '../Screens/LogIn';
+import Home from '../Screens/Home';
+import AddProduct from '../Screens/AddProduct';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +29,16 @@ const AppNav = () => {
           name="LogIn"
           component={LogIn}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddProduct"
+          component={AddProduct}
+          options={{headerShown: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>

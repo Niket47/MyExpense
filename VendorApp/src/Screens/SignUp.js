@@ -11,44 +11,58 @@ import CxTextInput from '../Components/CxTextInput';
 import CxButton from '../Components/CxButton';
 import {useNavigation} from '@react-navigation/native';
 import Loder from '../Components/Loder';
-import firestore from '@react-native-firebase/firestore';
+import firestore, {firebase} from '@react-native-firebase/firestore';
+import uuid from 'react-native-uuid';
 
 const SignUp = () => {
   const [visible, setVisible] = useState(false);
+
   const [name, setName] = useState('');
+
   const [email, setEmail] = useState('');
-  const [number, setNumber] = useState('');
+
+  const [mobile, setMobile] = useState('');
+
   const [pass, setPass] = useState('');
+
   const [confirm, setConfirm] = useState('');
+
   const registeruser = () => {
-    if (validate()) {
-      console.log('submit');
-      setVisible(true);
-    } else {
+    const uuId = uuid.v4();
+
+    if (name == '' || mobile == '' || email == '' || pass == '') {
+      console.log('not-submit');
       Alert.alert('enterdata');
+    } else {
+      setVisible(true);
+      firestore()
+        .collection('Users')
+        .doc(uuId)
+        .set({
+          name: name,
+          email: email,
+          mobile: mobile,
+          pass: pass,
+          uuId: uuId,
+        })
+        .then(res => {
+          setVisible(false);
+          navigation.goBack();
+          console.log('created');
+        })
+        .catch(error => {
+          setVisible(false);
+          console.log(error, 'error');
+        });
+      setEmail('');
+      setConfirm('');
+      setMobile('');
+      setName('');
+      setPass('');
+      console.log('submit');
     }
   };
-  const validate = () => {
-    let valid = true;
-    if (name == '') {
-      valid = false;
-    }
-    if (Email == '') {
-      valid = false;
-    }
-    if (Number == '') {
-      valid = false;
-    }
-    if (Pass == '') {
-      valid = false;
-    }
-    if (Confirm == '') {
-      valid = false;
-    }
-    if (Pass !== Confirm) {
-      valid = false;
-    }
-  };
+
   const navigation = useNavigation();
   const onbackbtnhandler = () => {
     navigation.goBack();
@@ -59,6 +73,7 @@ const SignUp = () => {
       <TouchableOpacity style={styles.backbtn} onPress={onbackbtnhandler}>
         <Image style={styles.btn} source={require('../../img/back.png')} />
       </TouchableOpacity>
+
       <View style={styles.card}>
         <Text style={styles.title}>SignUp</Text>
         <CxTextInput
@@ -71,12 +86,14 @@ const SignUp = () => {
           onChangeText={text => setEmail(text)}
           value={email}
         />
+
         <CxTextInput
-          placeholder="Number"
-          keyboardType="number-pad"
-          onChangeText={text => setNumber(text)}
-          value={number}
+          placeholder="mobile number"
+          onChangeText={text => setMobile(text)}
+          value={mobile}
+          type={'number-pad'}
         />
+
         <CxTextInput
           placeholder="Pass"
           onChangeText={text => setPass(text)}
@@ -89,7 +106,7 @@ const SignUp = () => {
         />
         <CxButton title="singup" onPress={registeruser} />
       </View>
-      <Loder visible={false} />
+      <Loder visible={visible} />
     </View>
   );
 };
@@ -109,12 +126,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignSelf: 'center',
     width: '95%',
-    height: '60%',
+    height: '100%',
     position: 'absolute',
     top: 170,
     elevation: 5,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    // zIndex: 100,
   },
   title: {
     marginTop: 10,

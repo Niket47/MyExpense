@@ -22,3 +22,21 @@ const App = () => {
 export default App;
 //
 
+
+for vendor app 
+
+2 //
+import {View, Text} from 'react-native';
+import React from 'react';
+import it
+
+const App = () => {
+  return (
+      <Main />
+  );
+};
+
+export default App;
+//
+
+

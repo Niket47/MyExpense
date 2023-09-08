@@ -1,10 +1,10 @@
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import React, {useLayoutEffect, useState} from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
 import InputForm from '../Components/InputForm';
-import {useSelector, useDispatch} from 'react-redux';
-import {addExpense, updateExpense} from '../Redux/ExpenseSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addExpense, updateExpense } from '../Redux/ExpenseSlice';
 
-const AddExpense = ({route, navigation}) => {
+const AddExpense = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   const expensesId = route.params?.expenseId;
@@ -27,7 +27,7 @@ const AddExpense = ({route, navigation}) => {
 
   const onConfirm = expenseData => {
     if (isEditing) {
-      dispatch(updateExpense({...expenseData, id: expensesId}));
+      dispatch(updateExpense({ ...expenseData, id: expensesId }));
       console.log(expenseData, 'all');
     } else {
       dispatch(addExpense(expenseData));
@@ -62,7 +62,7 @@ const AddExpense = ({route, navigation}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={{textAlign: 'center', fontSize: 19}}>
+        <Text style={{ textAlign: 'center', fontSize: 19 }}>
           {isEditing ? 'edit' : 'Add Expense'}
         </Text>
         <InputForm

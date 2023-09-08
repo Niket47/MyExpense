@@ -1,22 +1,23 @@
-import {View, Text, Keyboard, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, Keyboard, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import Input from './Input';
-import {GlobalStyles} from '../constants/Styles';
+import { GlobalStyles } from '../constants/Styles';
 import CxButton from './CxButton';
 
-const InputForm = ({onSubmit, onCancel, defaultvalues}) => {
+const InputForm = ({ onSubmit, onCancel, defaultvalues }) => {
   const [inputvalues, setInputvalues] = useState({
     name: defaultvalues ? defaultvalues.name : '',
     amount: defaultvalues ? defaultvalues.amount.toString() : '',
     date: defaultvalues ? defaultvalues.date : '',
-    id: Math.random(),
+    // id: Math.random(),
+    id: defaultvalues ? defaultvalues.id : Math.random(),
   });
 
   const inputchangehandler = (fieldName, entertext) => {
     setInputvalues({
       ...inputvalues,
       [fieldName]: entertext,
-      id: Math.random(),
+      id: defaultvalues ? defaultvalues.id : Math.random(),
     });
   };
 

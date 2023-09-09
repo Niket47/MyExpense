@@ -1,12 +1,9 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from 'react-native';
+import React from 'react';
+import StackNav from './Navigation/StackNav';
 
 const EcomMain = () => {
-  return (
-    <View>
-      <Text>EcomMain</Text>
-    </View>
-  )
-}
+  return <StackNav />;
+};
 
-export default EcomMain
+export default EcomMain;

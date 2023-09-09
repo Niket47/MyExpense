@@ -2,11 +2,10 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
 
-
 const Splash = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('BottomNav');
     }, 2000);
   }, []);
 

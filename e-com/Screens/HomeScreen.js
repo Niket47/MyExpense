@@ -17,24 +17,46 @@ import SearchBar from '../components/SearchBar';
 import Location from '../components/Location';
 import { SliderBox } from 'react-native-image-slider-box';
 import { sliderImages } from '../utils/AllData';
-import { Divider } from 'react-native-paper';
+import {
+  Button,
+  Divider,
+  Modal,
+  PaperProvider,
+  Portal,
+} from 'react-native-paper';
 import Product from '../components/Product';
 import { Dropdown } from 'react-native-element-dropdown';
+import { useSelector } from 'react-redux';
+// import { useNavigation } from '@react-navigation/native';
 
 const DealsUrl =
-  'https://4e05-2409-4080-be11-e302-9997-3329-c1f0-960a.ngrok-free.app/deals';
+  'https://dee3-2409-4080-be11-e302-3d69-f424-ffc2-374.ngrok-free.app/deals';
 const offerUrl =
-  'https://c30f-2409-4080-be17-1b79-4cdf-6c51-4a9d-ba92.ngrok-free.app/offers';
+  'https://dee3-2409-4080-be11-e302-3d69-f424-ffc2-374.ngrok-free.app/offers';
 const url =
-  'https://4e05-2409-4080-be11-e302-9997-3329-c1f0-960a.ngrok-free.app/list';
+  'https://dee3-2409-4080-be11-e302-3d69-f424-ffc2-374.ngrok-free.app/list';
 const productsUrl = 'https://fakestoreapi.com/products';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [deals, setDeals] = useState([]);
   const [offers, setOffers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [category, setCategory] = useState('electronics');
+  const [category, setCategory] = useState('jewelery');
+  // const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {
+    backgroundColor: 'white',
+    // padding: 20,
+    marginHorizontal: 10,
+    width: '94%',
+    height: 400,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
 
   const ddata = [
     { label: "men's clothing", value: "men's clothing" },
@@ -94,133 +116,198 @@ const HomeScreen = () => {
 
   const onChangeText = () => {};
 
+  const onpressdeals = item => {};
+
+  const selectlocation = () => {
+    setVisible(!visible);
+  };
+
+  const mycart = useSelector(state => state.cart.cart);
+  console.log(mycart, 'mycart');
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <SearchBar onChangeText={onChangeText} />
-        <Location name={'deliever to nik - Surat'} />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {data.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.slidercont}>
-              <View>
-                <Image source={{ uri: item.image }} style={styles.image} />
-                <Text style={styles.textbar}>{item.name}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+    <>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <SearchBar onChangeText={onChangeText} />
+          <Location
+            name={'deliever to nik - Surat'}
+            onlocationpress={selectlocation}
+          />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {data.map((item, index) => (
+              <TouchableOpacity key={index} style={styles.slidercont}>
+                <View>
+                  <Image source={{ uri: item.image }} style={styles.image} />
+                  <Text style={styles.textbar}>{item.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
 
-        <SliderBox
-          images={sliderImages}
-          // sliderBoxHeight={200}
-          autoplay
-          circleLoop
-          ImageComponentStyle={{ width: '100%' }}
-          onCurrentImagePressed={index =>
-            console.warn(`image ${index} pressed`)
-          }
-          dotColor="#FFEE58"
-          inactiveDotColor="#90A4AE"
-        />
-        <Text
-          style={{
-            fontSize: 17,
-            textAlign: 'center',
-            paddingTop: 8,
-            textTransform: 'capitalize',
-            fontFamily: GlobalStyles.fonts.primary,
-          }}>
-          trending delas of the week
-        </Text>
+          <SliderBox
+            images={sliderImages}
+            // sliderBoxHeight={200}
+            autoplay
+            circleLoop
+            ImageComponentStyle={{ width: '100%' }}
+            onCurrentImagePressed={index =>
+              console.warn(`image ${index} pressed`)
+            }
+            dotColor="#FFEE58"
+            inactiveDotColor="#90A4AE"
+          />
+          <Text
+            style={{
+              fontSize: 17,
+              textAlign: 'center',
+              paddingTop: 8,
+              textTransform: 'capitalize',
+              fontFamily: GlobalStyles.fonts.primary,
+            }}>
+            trending delas of the week
+          </Text>
 
-        <View style={styles.offermain}>
-          {deals.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.offercont}>
-              <Image source={{ uri: item.image }} style={styles.offer} />
-            </TouchableOpacity>
-          ))}
-        </View>
-        <Divider bold="true" />
-        <Text
-          style={{
-            fontSize: 17,
-            textAlign: 'center',
-            paddingTop: 8,
-            textTransform: 'capitalize',
-            fontFamily: GlobalStyles.fonts.primary,
-          }}>
-          today's delas
-        </Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {offers.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={{
-                marginVertical: 10,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Image source={{ uri: item?.image }} style={styles.offerimages} />
-              <View
+          <View style={styles.offermain}>
+            {deals.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.offercont}
+                onPress={() => {
+                  console.log('object');
+                  navigation.navigate('ProductInfo', {
+                    id: item.id,
+                    title: item.title,
+                    offer: item.offer,
+                    oldPrice: item.oldPrice,
+                    price: item.price,
+                    carouselImages: item.carouselImages,
+                    color: item.color,
+                    size: item.size,
+                    item: item,
+                  });
+                }}>
+                <Image source={{ uri: item.image }} style={styles.offer} />
+              </TouchableOpacity>
+            ))}
+          </View>
+          <Divider bold="true" />
+          <Text
+            style={{
+              fontSize: 17,
+              textAlign: 'center',
+              paddingTop: 8,
+              textTransform: 'capitalize',
+              fontFamily: GlobalStyles.fonts.primary,
+            }}>
+            today's delas
+          </Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {offers.map((item, index) => (
+              <TouchableOpacity
+                key={index}
                 style={{
-                  backgroundColor: '#e31837',
-                  paddingVertical: 5,
-                  // paddingHorizontal: 10,
-                  borderRadius: 5,
+                  marginVertical: 10,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginTop: 10,
-                  width: 100,
+                }}
+                onPress={() => {
+                  navigation.navigate('ProductInfo', {
+                    id: item.id,
+                    title: item.title,
+                    offer: item.offer,
+                    oldPrice: item.oldPrice,
+                    price: item.price,
+                    carouselImages: item.carouselImages,
+                    color: item.color,
+                    size: item.size,
+                    item: item,
+                  });
                 }}>
-                <Text
+                <Image
+                  source={{ uri: item?.image }}
+                  style={styles.offerimages}
+                />
+                <View
                   style={{
-                    color: '#fff',
-                    fontFamily: GlobalStyles.fonts.primary,
+                    backgroundColor: '#e31837',
+                    paddingVertical: 5,
+                    // paddingHorizontal: 10,
+                    borderRadius: 5,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 10,
+                    width: 100,
                   }}>
-                  Upto {item.offer}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        <Divider bold="true" />
-
-        <View>
-          <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={ddata}
-            maxHeight={200}
-            labelField="label"
-            valueField="value"
-            placeholder="Select item"
-            value={category}
-            onChange={item => {
-              setCategory(item.value);
-            }}
-            renderLeftIcon={() => (
-              <Icon style={styles.icon} color="black" name="home" size={20} />
-            )}
-          />
-        </View>
-
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}>
-          {products
-            .filter(item => item.category === category)
-            .map((items, index) => (
-              <Product item={items} key={index} />
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontFamily: GlobalStyles.fonts.primary,
+                    }}>
+                    Upto {item.offer}
+                  </Text>
+                </View>
+              </TouchableOpacity>
             ))}
+          </ScrollView>
+          <Divider bold="true" />
+
+          <View>
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={ddata}
+              maxHeight={200}
+              labelField="label"
+              valueField="value"
+              placeholder="Select item"
+              value={category}
+              onChange={item => {
+                setCategory(item.value);
+              }}
+              renderLeftIcon={() => (
+                <Icon style={styles.icon} color="black" name="home" size={20} />
+              )}
+            />
+          </View>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}>
+            {products
+              .filter(item => item.category === category)
+              .map((item, index) => (
+                <Product item={item} key={index} />
+              ))}
+          </View>
+        </ScrollView>
+        {/* <View>
+          <Button style={{ marginTop: 30 }} onPress={showModal}>
+            Show
+          </Button>
+        </View> */}
+      </SafeAreaView>
+      <Modal
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={containerStyle}>
+        <View style={{ marginBottom: 8 }}>
+          <Text style={{ fontSize: 16, fontWeight: '500' }}>
+            Choose your Location
+          </Text>
+
+          <Text style={{ marginTop: 5, fontSize: 16, color: 'gray' }}>
+            Select a delivery location to see product availabilty and delivery
+            options
+          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </Modal>
+    </>
   );
 };
 
@@ -282,8 +369,8 @@ const styles = StyleSheet.create({
   },
   //
   dropdown: {
-    margin: 16,
-    height: 50,
+    margin: 10,
+    height: 40,
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
   },

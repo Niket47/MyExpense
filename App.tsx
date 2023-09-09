@@ -1,9 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import EcomMain from './e-com/EcomMain';
 
 const App = () => {
-  return <EcomMain />;
+  return (
+    <View>
+      <Text>App</Text>
+    </View>
+  );
 };
 
 export default App;

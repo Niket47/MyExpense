@@ -1,17 +1,33 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import React from 'react';
 import { GlobalStyles } from '../utils/Colors';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Location = ({ name }) => {
+const Location = ({ name, onlocationpress }) => {
   return (
-    <View style={styles.location}>
-      <Icon name="location-arrow" size={25} color="#FFF" style={styles.icon} />
-      <Pressable style={styles.loccont}>
+    <TouchableOpacity style={styles.location} onPress={onlocationpress}>
+      <Ionicons
+        name="location-outline"
+        size={25}
+        color="#FFF"
+        style={styles.icon}
+      />
+      <View style={styles.loccont}>
         <Text style={styles.text}>{name}</Text>
-      </Pressable>
-      <Icon name="arrow-down" size={25} color="#FFF" style={styles.icon} />
-    </View>
+      </View>
+      <Ionicons
+        name="arrow-down-sharp"
+        size={25}
+        color="#FFF"
+        style={styles.icon}
+      />
+    </TouchableOpacity>
   );
 };
 

@@ -1,8 +1,16 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalStyles } from '../utils/Colors';
+import { AddtoCart } from '../redux/CartSlice';
+import { useDispatch } from 'react-redux';
 
 const Product = ({ item }) => {
+  const [addedtocart, setAddedtocart] = useState(false);
+  const dispatch = useDispatch();
+  const addtoCartitems = item => {
+    setAddedtocart(true);
+    dispatch(AddtoCart(item));
+  };
   return (
     <TouchableOpacity style={{ marginHorizontal: 20, marginVertical: 25 }}>
       <Image
@@ -39,6 +47,7 @@ const Product = ({ item }) => {
         </Text>
       </View>
       <TouchableOpacity
+        onPress={() => addtoCartitems(item)}
         style={{
           backgroundColor: '#ffc72c',
           padding: 10,
@@ -54,7 +63,7 @@ const Product = ({ item }) => {
             fontWeight: GlobalStyles.fonts.bold100,
             color: '#000',
           }}>
-          add to cart
+          {addedtocart ? 'added to cart' : 'add to cart'}
         </Text>
       </TouchableOpacity>
     </TouchableOpacity>

@@ -5,6 +5,8 @@ import HomeScreen from '../Screens/HomeScreen';
 import Profile from '../Screens/Profile';
 import Cart from '../Screens/Cart';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,9 +22,9 @@ const BottomNav = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Icon name="home" size={24} color="#008E97" />
+              <Icons name="home" size={24} color="#008E97" />
             ) : (
-              <Icon name="home" size={24} color="black" />
+              <Icons name="home" size={24} color="black" />
             ),
         }}
       />
@@ -34,9 +36,9 @@ const BottomNav = () => {
           tabBarLabelStyle: { color: '#008E97' },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Icon name="user-circle" size={24} color="#008E97" />
+              <Ionicons name="person" size={24} color="#008E97" />
             ) : (
-              <Icon name="user-circle" size={24} color="black" />
+              <Ionicons name="person" size={24} color="black" />
             ),
         }}
       />
@@ -44,7 +46,7 @@ const BottomNav = () => {
         name="Cart"
         component={Cart}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Cart',
           tabBarLabelStyle: { color: '#008E97' },
           tabBarIcon: ({ focused }) =>
             focused ? (

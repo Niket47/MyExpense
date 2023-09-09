@@ -40,3 +40,23 @@ export default App;
 //
 
 
+
+// e-com amazone app
+
+import { View, Text } from 'react-native';
+import React from 'react';
+import EcomMain from './e-com/EcomMain';
+import { Provider } from 'react-redux';
+import { store } from './e-com/redux/Store';
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <EcomMain />
+    </Provider>
+  );
+};
+
+export default App;
+
+

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   title: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#000',
   },
 });

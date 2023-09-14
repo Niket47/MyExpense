@@ -11,12 +11,14 @@ import {
 import React, { useState } from 'react';
 import { GlobalStyles } from '../../Common/Utils';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { productsa } from '../../Common/dummyProduct';
+import { productsa, productsb, productsc } from '../../Common/dummyProduct';
 import Catalog from '../Components/Catalog';
 import Header from '../Components/Header';
 
 const Home = ({ navigation }) => {
   const [catalog, setCatlog] = useState(productsa);
+  const [perfume, setPerfume] = useState(productsb);
+  const [groceries, setGroceries] = useState(productsc);
 
   const onPressCatlog = item => {
     navigation.navigate('CatlogDetail', {
@@ -24,7 +26,7 @@ const Home = ({ navigation }) => {
       category: item.category,
       image: item.thumbnail,
       price: item.price,
-      name: item.name,
+      name: item.title,
       images: item.images,
       category: item.price,
       item: item,
@@ -54,12 +56,31 @@ const Home = ({ navigation }) => {
               style={styles.banner}
             />
           </View>
+          <Text style={styles.cattitle}>smartphones</Text>
           <FlatList
             horizontal
             data={catalog}
             renderItem={item => RenderItems(item)}
             keyExtractor={item => item.id}
           />
+          <View style={styles.containers}>
+            <Text style={styles.cattitle}>perfume & skincare</Text>
+            <FlatList
+              horizontal
+              data={perfume}
+              renderItem={item => RenderItems(item)}
+              keyExtractor={item => item.id}
+            />
+          </View>
+          <View style={styles.containers}>
+            <Text style={styles.cattitle}>groceries</Text>
+            <FlatList
+              horizontal
+              data={groceries}
+              renderItem={item => RenderItems(item)}
+              keyExtractor={item => item.id}
+            />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>
@@ -69,10 +90,20 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {},
+  containers: {
+    marginVertical: 7,
+  },
   banner: {
     width: '100%',
     height: 200,
     resizeMode: 'cover',
+  },
+  cattitle: {
+    fontSize: 20,
+    fontFamily: GlobalStyles.fonts.primary500,
+    color: '#000',
+    textTransform: 'capitalize',
+    paddingVertical: 5,
+    marginLeft: 7,
   },
 });

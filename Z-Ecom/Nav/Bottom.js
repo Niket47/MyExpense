@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../Screens/Home';
 import Shop from '../Screens/Shop';
 import Fav from '../Screens/Fav';
-import Bag from '../Screens/Bag';
+
 import Profile from '../Screens/Profile';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -48,6 +48,7 @@ const Bottom = () => {
         options={{
           headerShown: false,
           tabBarShowLabel: false,
+         
           tabBarIcon: ({ focused }) =>
             focused ? (
               <Ionicons name="cart" size={24} color="#DB3022" />
@@ -70,7 +71,7 @@ const Bottom = () => {
             ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Bag"
         component={Bag}
         options={{
@@ -83,7 +84,7 @@ const Bottom = () => {
               <Ionicons name="bag-outline" size={24} color="#000" />
             ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Profile"
         component={Profile}

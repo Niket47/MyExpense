@@ -10,13 +10,18 @@ import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
-const Bottom = () => {
+const Bottom = ({ navigation }) => {
+  const mycart = useSelector(state => state.cart.cart);
+  const badge = mycart.length;
+  console.log(typeof badge, badge, 'bdge');
+
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         tabBarStyle: {
           height: 70,
           position: 'absolute',
@@ -27,7 +32,7 @@ const Bottom = () => {
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
         },
-      }}>
+      })}>
       <Tab.Screen
         name="Home"
         component={Home}
@@ -48,7 +53,7 @@ const Bottom = () => {
         options={{
           headerShown: false,
           tabBarShowLabel: false,
-         
+          tabBarBadge: badge >= 1 ? badge : null,
           tabBarIcon: ({ focused }) =>
             focused ? (
               <Ionicons name="cart" size={24} color="#DB3022" />

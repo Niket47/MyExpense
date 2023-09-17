@@ -8,7 +8,7 @@ import CatlogDetail from '../Screens/Detail/CatlogDetail';
 
 const StackNav = createStackNavigator();
 
-const Stack = () => {
+const Stack = ({ navigation }) => {
   return (
     <NavigationContainer>
       <StackNav.Navigator>

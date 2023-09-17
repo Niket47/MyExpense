@@ -6,7 +6,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import Header from '../../Components/Header';
 import { GlobalStyles } from '../../../Common/Utils';
 import CartBtn from '../../Components/CartBtn';
@@ -23,13 +23,15 @@ const CatlogDetail = ({ route, navigation }) => {
   const AllData = route.params;
   console.log(data, 'data');
   console.log(AllData, 'item');
-  
+
   const onbackpress = () => {
     navigation.goBack();
   };
+
   const addproduct = AllData => {
     dispatch(addtoCart(AllData));
   };
+
   return (
     <>
       <Header title={AllData.item.brand} onbackpress={onbackpress} />

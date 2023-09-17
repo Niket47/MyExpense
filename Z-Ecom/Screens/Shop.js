@@ -60,14 +60,14 @@ const Shop = ({ navigation }) => {
     }
   };
 
-  const badge = mycart.length;
-  console.log(typeof badge, badge, 'bdge');
+  // const badge = mycart.length;
+  // console.log(typeof badge, badge, 'bdge');
 
-  useEffect(() => {
-    navigation.setOptions({
-      tabBarBadge: badge,
-    });
-  }, [navigation, badge]);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     tabBarBadge: '',
+  //   });
+  // }, [navigation, badge]);
 
   return (
     <SafeAreaView>

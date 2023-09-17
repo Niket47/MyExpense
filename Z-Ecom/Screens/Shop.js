@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import CartItems from '../Components/CartItems';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../Components/Header';
@@ -42,9 +42,6 @@ const Shop = ({ navigation }) => {
     }, 0);
   console.log(total, 'totl');
 
-  const badge = mycart.length;
-  console.log(typeof badge, badge, 'bdge');
-
   const onbackpress = () => {
     navigation.goBack();
   };
@@ -62,6 +59,9 @@ const Shop = ({ navigation }) => {
       dispatch(RemoveFromCart(item));
     }
   };
+
+  const badge = mycart.length;
+  console.log(typeof badge, badge, 'bdge');
 
   useEffect(() => {
     navigation.setOptions({

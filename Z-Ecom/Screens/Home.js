@@ -7,6 +7,7 @@ import {
   Image,
   View,
   StatusBar,
+  TextInput,
 } from 'react-native';
 import React, { useState } from 'react';
 import { GlobalStyles } from '../../Common/Utils';
@@ -19,6 +20,7 @@ const Home = ({ navigation }) => {
   const [catalog, setCatlog] = useState(productsa);
   const [perfume, setPerfume] = useState(productsb);
   const [groceries, setGroceries] = useState(productsc);
+  const [search, setSearch] = useState('');
 
   const onPressCatlog = item => {
     navigation.navigate('CatlogDetail', {
@@ -45,6 +47,17 @@ const Home = ({ navigation }) => {
     />
   );
 
+  const filterdata = text => {
+    if (text === '') {
+      setCatlog(productsa);
+    } else {
+      let tempdata = catalog.filter(item => {
+        return item.title.toLowerCase().indexOf(text.toLowerCase()) > -1;
+      });
+      setCatlog(tempdata);
+    }
+  };
+
   return (
     <>
       <StatusBar hidden={true} />
@@ -54,6 +67,16 @@ const Home = ({ navigation }) => {
             <Image
               source={require('../LocalData/images/banner.png')}
               style={styles.banner}
+            />
+          </View>
+          <View>
+            <TextInput
+              style={styles.input}
+              value={search}
+              onChangeText={text => {
+                setSearch(text);
+                filterdata(text);
+              }}
             />
           </View>
           <Text style={styles.cattitle}>smartphones</Text>
@@ -105,5 +128,15 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     paddingVertical: 5,
     marginLeft: 7,
+  },
+  input: {
+    height: 40,
+    marginTop: 10,
+    borderWidth: 1,
+    marginHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    borderColor: '#eeebeb6d',
+    elevation: 0.7,
   },
 });

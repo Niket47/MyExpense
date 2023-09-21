@@ -5,6 +5,7 @@ export const GlobalStyles = {
     primaryblue: '#0077FF',
     primarygreen: '#00A86B',
     primaryblues: '##7F3DFF',
+    primary: '##7F3DFF',
     secondry: '#EEE5FF',
     dark: '#161719',
     white: '#fff',

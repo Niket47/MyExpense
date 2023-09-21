@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   addButtonInner: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: GlobalStyles.colors.primary,
+    backgroundColor: '#7F3DFF',
     width: 60,
     height: 60,
     borderRadius: 30,

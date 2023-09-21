@@ -9,6 +9,7 @@ import uuid from 'react-native-uuid';
 import { ActivityIndicator } from 'react-native-paper';
 import { GlobalStyles } from '../../Common/Utils';
 import Loder from '../Compooents/Loder';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = ({ navigation }) => {
   const imageleft = require('../../Expense-App/Images/icons/arrow-left.png');
@@ -24,6 +25,7 @@ const SignUp = ({ navigation }) => {
   const [pass, setPass] = useState('');
 
   const onRegisterUser = () => {
+    setVisible(true);
     const userid = uuid.v4();
     firestore()
       .collection('Users')
@@ -32,16 +34,20 @@ const SignUp = ({ navigation }) => {
         name: names,
         email: email,
         pass: pass,
+        uuId: userid,
       })
       .then(() => {
+        setVisible(false);
         console.log('User added!');
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        setVisible(false);
+        console.log(error);
+      });
   };
 
   return (
     <View style={styles.maincont}>
-      <Loder visible={visible} />
       <CxHeader
         title={'SignUp'}
         imageleft={imageleft}
@@ -72,6 +78,7 @@ const SignUp = ({ navigation }) => {
           Already have an account? Login
         </Text>
       </View>
+      <Loder visible={visible} />
     </View>
   );
 };

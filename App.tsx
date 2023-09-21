@@ -1,15 +1,9 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import ZecmMain from './Z-Ecom/ZecmMain';
-import { Provider } from 'react-redux';
-import { store } from './Z-Ecom/Redux/MyStore';
+import Navigator from './Expense-App/Navigator';
 
 const App = () => {
-  return (
-    <Provider store={store}>
-      <ZecmMain />
-    </Provider>
-  );
+  return <Navigator />;
 };
 
 export default App;

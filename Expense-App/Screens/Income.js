@@ -20,7 +20,7 @@ const Income = ({ navigation, route }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? 'edit' : 'add',
+      title: isEditing ? 'Edit-Expense' : 'Add-Expense',
     });
   }, [navigation, isEditing]);
 
@@ -34,18 +34,12 @@ const Income = ({ navigation, route }) => {
     navigation.goBack();
   };
 
-  // const oncofirm = data => {
-  //   console.log(data);
-  //   dispatch(addExpense(data));
-  // };
-
   return (
     <>
       <SafeAreaView>
         <ScrollView>
           <View style={{ marginTop: 10, marginLeft: 10 }}>
             <Text style={{ fontSize: 15 }}>How much?</Text>
-            <Text style={{ fontSize: 35 }}>$</Text>
           </View>
           <View>
             <InputForm onSubmit={onConfirm} defaultvalues={selectedvalues} />

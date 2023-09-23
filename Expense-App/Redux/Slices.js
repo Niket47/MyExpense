@@ -14,8 +14,9 @@ const obj = [
   },
   {
     id: '13',
+    name: 'hello',
     amount: '59.9922',
-    category: '',
+    category: '1',
     description: 'A pair of assqww',
   },
 ];
@@ -23,21 +24,26 @@ const initialState = {
   expense: [
     {
       id: '11',
+      name: 'hello',
       amount: '59.99',
-      category: 'pair',
+      date: 'Mon Dec 24 2018 10:33:30 GMT+0530 (India Standard Time)',
+      category: '1',
       description: 'A pair of shoes',
     },
     {
       id: '22',
       name: 'A pair of asxzxs',
       amount: '89.2911',
-      date: '2022-01-05',
-      category: 'shoes',
+      date: '2022-02-14',
+      category: '2',
+      description: 'A pair of shoes',
     },
     {
       id: '13',
+      name: 'A pair',
       amount: '59.9922',
-      category: 'assqww',
+      category: '1',
+      // date: new Date('2022-01-18'),
       description: 'A pair of assqww',
     },
   ],

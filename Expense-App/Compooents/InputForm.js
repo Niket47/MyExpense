@@ -1,27 +1,30 @@
-import { View, Text, Keyboard, StyleSheet } from 'react-native';
+import { View, Text, Keyboard, StyleSheet, Button } from 'react-native';
 import React, { useState } from 'react';
 import CxTextInput from './CxTextInput';
 import PrimaryButton from './PrimaryButton';
 import { Dropdown } from 'react-native-element-dropdown';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import DatePicker from 'react-native-date-picker';
 
 const InputForm = ({ onSubmit, defaultvalues }) => {
-  const [selected, setSelected] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  console.log(date, 'date');
+
   const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
-    { label: 'Item 5', value: '5' },
-    { label: 'Item 6', value: '6' },
-    { label: 'Item 7', value: '7' },
-    { label: 'Item 8', value: '8' },
+    { label: 'Income 1', value: '1' },
+    { label: 'Expense 2', value: '2' },
+    { label: 'Transaction 3', value: '3' },
   ];
-  console.log(selected, 'selected');
 
   const [inputvalues, setInputvalues] = useState({
+    name: defaultvalues ? defaultvalues.name : '',
     amount: defaultvalues ? defaultvalues.amount : '',
     category: defaultvalues ? defaultvalues.category : '',
     description: defaultvalues ? defaultvalues.description : '',
+    // date: defaultvalues ? defaultvalues.date : date,
+    // date: date,
     // id: Math.random(),
   });
 
@@ -35,9 +38,11 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
 
   const onSubmithandler = () => {
     const expenseData = {
+      name: inputvalues.name,
       description: inputvalues.description,
       amount: inputvalues.amount,
       category: inputvalues.category,
+      // date: inputvalues.date,
       //   id: inputvalues.id,
     };
     // console.log(expenseData);
@@ -48,11 +53,18 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
   return (
     <View>
       <CxTextInput
+        placeholder={'Name'}
+        value={inputvalues.name}
+        onChangeText={text => inputchangehandler('name', text)}
+      />
+      {/* <Text style={{ color: 'red' }}>{errors.inputvalues.name}</Text> */}
+      <CxTextInput
         type={'number-pad'}
         placeholder={'Amount'}
         value={inputvalues.amount}
         onChangeText={text => inputchangehandler('amount', text)}
       />
+      {/* <Text style={{ color: 'red' }}>{errors.inputvalues.amount}</Text> */}
       <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
@@ -68,6 +80,20 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
         value={inputvalues.category}
         onChange={text => inputchangehandler('category', text.value)}
       />
+      <Button title="Open" onPress={() => setOpen(true)} />
+      {/* <DatePicker
+        modal
+        open={open}
+        date={date}
+        format="DD-MM-YYYY"
+        onConfirm={date => {
+          setOpen(false);
+          setDate(date);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      /> */}
 
       <CxTextInput
         placeholder={'Description'}
@@ -94,11 +120,15 @@ const styles = StyleSheet.create({
   },
   buttons: {},
   dropdown: {
-    margin: 16,
-    height: 50,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 12,
+    height: verticalScale(53),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: 16,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    borderColor: '#91919F',
+    backgroundColor: '#F1F1FA',
+    borderWidth: 1,
+    margin: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -123,6 +153,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   placeholderStyle: {
+    alignItems: 'center',
+    color: '#91919F',
     fontSize: 16,
   },
   selectedTextStyle: {

@@ -38,7 +38,7 @@ const AddButton = ({ opened, toggleOpened }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <TouchableOpacity onPress={() => navigation.navigate('Income')}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('Income')}>
           <Animated.View
             style={[
               styles.item,
@@ -121,8 +121,12 @@ const AddButton = ({ opened, toggleOpened }) => {
               style={styles.itemIcon}
             />
           </Animated.View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={toggleOpened} style={styles.addButton}>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => {
+            toggleOpened, navigation.navigate('Income');
+          }}
+          style={styles.addButton}>
           <Animated.View
             style={[
               styles.addButtonInner,

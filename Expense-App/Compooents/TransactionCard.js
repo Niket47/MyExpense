@@ -7,27 +7,35 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { FormateDate, FormateDates } from './Dates';
 
 const width = Dimensions.get('window');
 const screenDimensions = Dimensions.get('screen');
 
 const TransactionCard = ({
-  title,
+  name,
+  category,
   description,
   transaction,
-  time,
+  date,
   onpress,
   onLongPress,
+  iconname,
+  amountcolor,
 }) => {
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={onpress}
       onLongPress={onLongPress}>
-      <View style={{ backgroundColor: '#000', padding: 10, borderRadius: 10 }}>
-        <Image
-          resizeMode="contain"
-          source={require('../Images/icons/user.png')}
+      <View
+        style={{ backgroundColor: '#1f1e1e', padding: 10, borderRadius: 10 }}>
+        <AntDesign
+          name={iconname}
+          size={40}
+          // color="#fff"
+          color={iconname == 'up' ? '#DE2402' : '#00A86B'}
           style={styles.image}
         />
       </View>
@@ -40,22 +48,25 @@ const TransactionCard = ({
           paddingLeft: 10,
         }}>
         <View>
-          <Text style={{ paddingBottom: 10, fontSize: 16, color: '#292B2D' }}>
-            {title}
+          {/* <Text style={{ paddingBottom: 10, fontSize: 16, color: '#292B2D' }}>
+            {category}
+          </Text> */}
+          <Text>
+            {name}
+            {/* {category} */}
           </Text>
-          <Text style={{ paddingBottom: 10, fontSize: 14, color: '#91919F' }}>
-            {description}
-          </Text>
+          <Text>{description}</Text>
         </View>
         <View>
           <Text
             style={{
               paddingBottom: 10,
               fontSize: 17,
-              color: '#00A86B',
+              // color: '#00A86B',
+              color: amountcolor,
               alignSelf: 'flex-end',
             }}>
-            {transaction}.000
+            {transaction}.00
           </Text>
           <Text
             style={{
@@ -64,7 +75,9 @@ const TransactionCard = ({
               color: '#91919F',
               alignSelf: 'flex-end',
             }}>
-            {time}
+            {/* {date} */}
+            {/* {FormateDate(date)} */}
+            {FormateDates(date)}
           </Text>
         </View>
       </View>
@@ -87,8 +100,22 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   image: {
-    padding: 10,
+    // padding: 10,
     width: 40,
     height: 40,
+    borderRadius: 50,
+    backgroundColor: '#7d7d7d4b',
+  },
+  description: {
+    paddingBottom: 10,
+    fontSize: 14,
+    color: '#91919F',
+    textTransform: 'capitalize',
+  },
+  name: {
+    paddingBottom: 10,
+    fontSize: 16,
+    color: '#292B2D',
+    textTransform: 'capitalize',
   },
 });

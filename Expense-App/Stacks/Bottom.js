@@ -1,25 +1,16 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Animated,
-} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import Icons from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Home from '../Screens/Home';
 import Transaction from '../Screens/Transaction';
-import AddTrans from '../Screens/AddTrans';
 import Budget from '../Screens/Budget';
 import Profile from '../Screens/Profile';
-import AddButton from '../Compooents/AddButton';
 import { GlobalStyles } from '../../Common/Utils';
+import Income from '../Screens/Income';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import AddTrans from '../Screens/AddTrans';
+import AddButton from '../Compooents/AddButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,18 +24,18 @@ const BottomNav = () => {
   };
   return (
     <Tab.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
+      screenOptions={({ navigation }) => ({
         tabBarStyle: {
           height: 70,
           position: 'absolute',
-          bottom: 25,
-          right: 20,
-          left: 20,
+          bottom: 2,
+          right: 5,
+          left: 5,
           elevation: 2,
           borderRadius: 15,
         },
-      }}>
+        tabBarShowLabel: false,
+      })}>
       <Tab.Screen
         name="Home"
         component={Home}
@@ -89,6 +80,20 @@ const BottomNav = () => {
           ),
         }}
       />
+      {/* <Tab.Screen
+        name="Income"
+        component={Income}
+        options={{
+          headerShown: true,
+          tabBarIcon: ({ size, color }) => {
+            return (
+              <View style={styles.plus}>
+                <AntDesign name="plus" size={50} color={'#fff'} />
+              </View>
+            );
+          },
+        }}
+      /> */}
       <Tab.Screen
         name="Budget"
         component={Budget}
@@ -126,53 +131,15 @@ const BottomNav = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    height: 0,
-  },
-  box: {
-    position: 'relative',
-    width: 60,
-    height: 60,
-    marginTop: -30,
-  },
-  addButton: {
-    shadowColor: GlobalStyles.colors.dark,
-    shadowOpacity: 0.3,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-  },
-  addButtonInner: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: GlobalStyles.colors.primary,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-  },
-  addButtonIcon: {
-    width: 40,
-    height: 40,
-    tintColor: GlobalStyles.colors.white,
-  },
-  item: {
+  plus: {
     position: 'absolute',
-    top: 5,
-    left: 5,
+    top: -25,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: GlobalStyles.colors.primary,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  itemIcon: {
-    width: 32,
-    height: 32,
-    tintColor: GlobalStyles.colors.white,
+    backgroundColor: '#7F3DFF',
+    width: 70,
+    height: 70,
+    borderRadius: 50,
   },
 });
 export default BottomNav;

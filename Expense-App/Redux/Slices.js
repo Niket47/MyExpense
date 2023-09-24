@@ -43,11 +43,17 @@ const expenseSlice = createSlice({
       );
     },
     updateExpense: (state, action) => {
+      // console.log(action.payload, 'payload');
+
       const updatableExpenseIndex = state.expense.findIndex(
         expense => expense.id === action.payload.id,
       );
 
+      // console.log(updatableExpenseIndex, 'updatableExpenseIndex');
+
       const updatableExpense = state.expense[updatableExpenseIndex];
+
+      // console.log(updatableExpense, 'updatableExpense');
 
       state.expense[updatableExpenseIndex] = {
         ...updatableExpense,

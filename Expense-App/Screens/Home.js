@@ -9,13 +9,15 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import TransactionCard from '../Compooents/TransactionCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteExpense } from '../Redux/Slices';
 import HomeHader from '../Compooents/HomeHader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import TranCard from '../Compooents/TranCard';
+import { Button } from 'react-native-paper';
+import CatFilterBox from '../Compooents/CatFilterBox';
 
 const Home = ({ navigation }) => {
   const data = useSelector(state => state.app.expense);
@@ -32,7 +34,7 @@ const Home = ({ navigation }) => {
 
   const renderExpenseItem = itemData => {
     return (
-      <TransactionCard
+      <TranCard
         amountcolor={itemData.item.category == 1 ? '#00A86B' : '#DE2402'}
         iconname={itemData.item.category == 1 ? 'down' : 'up'}
         name={itemData.item.name}
@@ -48,6 +50,21 @@ const Home = ({ navigation }) => {
   const select = () => {};
   const opendrawer = () => {};
   const notification = () => {};
+
+  const [items, setItems] = useState(data);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const filterItemsByCategory = category => {
+    if (category === 'All') {
+      setItems(data); // Show all items when 'All' is selected
+    } else {
+      const filteredItems = data.filter(item => item.category == category);
+      setItems(filteredItems);
+    }
+    setSelectedCategory(category);
+  };
+  console.log(items, 'items');
+
   return (
     <>
       <StatusBar hidden={false} />
@@ -69,22 +86,52 @@ const Home = ({ navigation }) => {
               onrightpress={notification}
             />
           </View>
-          <TranCard />
+          <TranCard
+            name={'name'}
+            time={'10am'}
+            description={'hello'}
+            transaction={'100'}
+          />
 
-          {/* <View>
-            <TransactionCard
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+            }}>
+            <Button
+              icon="camera"
+              mode="contained"
+              onPress={() => filterItemsByCategory(1)}>
+              income
+            </Button>
+            <Button
+              icon="camera"
+              mode="contained"
+              onPress={() => filterItemsByCategory(2)}>
+              expense
+            </Button>
+            <Button
+              icon="camera"
+              mode="contained"
+              onPress={() => filterItemsByCategory('All')}>
+              all
+            </Button>
+          </View>
+
+          <View>
+            {/* <TransactionCard
               name={'name'}
               time={'10am'}
               description={'hello'}
               transaction={'100'}
-            />
+            /> */}
             <FlatList
-              data={data}
+              data={items}
               scrollEnabled={false}
               renderItem={renderExpenseItem}
               keyExtractor={item => item.id}
             />
-          </View> */}
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>

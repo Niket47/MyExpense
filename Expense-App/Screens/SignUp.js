@@ -26,23 +26,23 @@ const SignUp = ({ navigation }) => {
 
   const onRegisterUser = () => {
     setVisible(true);
-    const userid = uuid.v4();
-    firestore()
-      .collection('Users')
-      .doc(userid)
-      .set({
-        name: names,
-        email: email,
-        pass: pass,
-        uuId: userid,
-      })
-      .then(() => {
-        setVisible(false);
-        console.log('User added!');
+    // const userid = uuid.v4();
+    auth()
+      .createUserWithEmailAndPassword(email, pass)
+      .then((res) => {
+        const email= JSON.stringify(res.email)
+        console.log('User account created & signed in!');
       })
       .catch(error => {
-        setVisible(false);
-        console.log(error);
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
       });
   };
 

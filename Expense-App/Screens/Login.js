@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import CxHeader from '../Compooents/CxHeader';
 import CxTextInput from '../Compooents/CxTextInput';
@@ -6,6 +6,7 @@ import PrimaryButton from '../Compooents/PrimaryButton';
 import SecondaryButton from '../Compooents/SecondaryButton';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
 
 const Login = ({ navigation }) => {
   const imageleft = require('../../Expense-App/Images/icons/arrow-left.png');
@@ -18,18 +19,23 @@ const Login = ({ navigation }) => {
   const [pass, setPass] = useState('');
 
   const loginuser = () => {
-    firestore()
-      .collection('Users')
-      // Filter results
-      .where('email', '==', email)
-      .get()
-      .then(Snapshot => {
-        console.log(Snapshot.docs[0].data());
-        if (Snapshot.docs != []) {
-          if (Snapshot.docs[0].data().pass === pass) {
-            gotoNextScreen(Snapshot.docs[0].data());
-          }
+    auth()
+      .signInWithEmailAndPassword(email, pass)
+      .then(res => {
+        console.log(json.stringify(res));
+        console.log('User account created & signed in!');
+        Alert.alert('signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
         }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
       });
   };
 
@@ -57,7 +63,7 @@ const Login = ({ navigation }) => {
 
         <PrimaryButton title={'Login'} onPress={loginuser} />
         <Text style={styles.textcenter}>or with</Text>
-        <SecondaryButton title="Sign Up with Google" />
+        <SecondaryButton title="Sign Up with Google" onPress={gotologin} />
         <Text style={[styles.textcenter, styles.Login]} onPress={gotologin}>
           Don’t have an account yet? Sign Up
         </Text>

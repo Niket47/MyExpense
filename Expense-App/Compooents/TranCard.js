@@ -1,38 +1,65 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
+  responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions';
+import { FormateDates } from './Dates';
 
-const TranCard = () => {
+const TranCard = ({
+  name,
+  category,
+  description,
+  transaction,
+  date,
+  onpress,
+  onLongPress,
+  iconname,
+  amountcolor,
+}) => {
   return (
-    <View style={styles.mainview}>
+    <TouchableOpacity
+      onPress={onpress}
+      onLongPress={onLongPress}
+      style={styles.mainview}>
       <View style={styles.imageview}>
-        <Image
+        {/* <Image
           source={require('../Images/icons/icons8-circle.png')}
+          style={styles.image}
+        /> */}
+        <AntDesign
+          name={iconname}
+          size={40}
+          // color="#fff"
+          color={iconname == 'up' ? '#DE2402' : '#00A86B'}
           style={styles.image}
         />
       </View>
       <View style={styles.nameview}>
         <Text style={styles.title} numberOfLines={1}>
-          Shopping
+          {name}
         </Text>
         <Text style={styles.des} numberOfLines={1}>
-          Buy an Avocado Buy an Avocado...
+          {description}
         </Text>
       </View>
       <View style={styles.amountview}>
-        <Text style={styles.title} numberOfLines={1}>
-          + Rp 3.129.00
+        <Text
+          style={{
+            fontSize: responsiveFontSize(2), // 2.3% of total screen size
+            color: amountcolor,
+          }}
+          numberOfLines={1}>
+          {transaction}.00
         </Text>
         <Text style={styles.des} numberOfLines={1}>
-          20-7-23
+          {FormateDates(date)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -47,8 +74,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     gap: 1,
     paddingVertical: responsiveHeight(2),
-    paddingHorizontal: responsiveWidth(2),
+    paddingHorizontal: responsiveWidth(2.7),
     marginHorizontal: responsiveWidth(1),
+    marginVertical: responsiveHeight(0.7),
     borderRadius: responsiveWidth(5),
   },
   imageview: {
@@ -58,13 +86,13 @@ const styles = StyleSheet.create({
     height: responsiveHeight(10), // % of window height
     width: responsiveWidth(10), // % of window width
     marginRight: responsiveWidth(1.5),
-    backgroundColor: 'red',
+    backgroundColor: '#EEE5FF',
     borderRadius: responsiveWidth(5),
   },
   nameview: {
     flex: 3,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     paddingVertical: responsiveHeight(0.4),
     // paddingHorizontal: responsiveWidth(1),
     height: responsiveHeight(10), // % of window height
@@ -74,7 +102,7 @@ const styles = StyleSheet.create({
   amountview: {
     flex: 3,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignContent: 'flex-end',
     alignItems: 'flex-end',
     paddingVertical: responsiveHeight(0.4),
@@ -84,15 +112,22 @@ const styles = StyleSheet.create({
     // backgroundColor: 'blue',
   },
   image: {
-    resizeMode: 'contain',
-    height: responsiveHeight(10), // 10% of window height
-    width: responsiveWidth(10), // 10% of window width
+    // resizeMode: 'contain',
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 0.7,
+    borderRadius: responsiveWidth(10),
+    borderColor: '#a9a9a9',
+    // height: responsiveHeight(10), // 10% of window height
+    // width: responsiveWidth(10), // 10% of window width
   },
   title: {
-    fontSize: responsiveFontSize(2.7), // 2.7% of total screen size
+    textTransform: 'capitalize',
+    fontSize: responsiveFontSize(2.3), // 2.7% of total screen size
     color: '#000',
   },
   des: {
-    fontSize: responsiveFontSize(2), // 2% of total screen size
+    fontSize: responsiveFontSize(1.8), // 2% of total screen size
   },
 });

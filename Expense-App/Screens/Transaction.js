@@ -13,13 +13,12 @@ import {
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteExpense } from '../Redux/Slices';
-import HomeHader from '../Compooents/HomeHader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import TranCard from '../Compooents/TranCard';
-
 import TransactionHeader from '../Compooents/TransactionHeader';
-import FilterFrom from '../Compooents/FilterFrom';
 import BottMode from '../Compooents/BottMode';
+import DatePicker from 'react-native-date-picker';
+import { FormateDates } from '../Compooents/Dates';
 
 const Transaction = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -69,7 +68,6 @@ const Transaction = () => {
   };
   console.log(items, 'items');
 
-  const selectdate = () => {};
   const filtercat = () => {
     setModalVisible(!isModalVisible);
   };
@@ -77,6 +75,26 @@ const Transaction = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  const selectdate = () => {
+    setOpen(true);
+  };
+  const [bydates, setBydates] = useState(data);
+  console.log(bydates, 'bydates');
+
+  const filterdata = bydates.filter(item => {
+    const objdate = new Date(item.date);
+    const final = objdate.getMonth() === date.getMonth();
+    return final;
+  });
+
+  console.log(filterdata, 'filterdata');
+
+  //  use Dropdown select for this by months here !!!
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -90,6 +108,22 @@ const Transaction = () => {
           onSwipeComplete={toggleModal}
           visible={isModalVisible}
         />
+
+        <DatePicker
+          modal
+          mode="date"
+          open={open}
+          date={date}
+          // format="DD-MM-YYYY"
+          onConfirm={date => {
+            setOpen(false);
+            setDate(date);
+          }}
+          onCancel={() => {
+            setOpen(false);
+          }}
+        />
+
         <FlatList
           data={items}
           scrollEnabled={false}

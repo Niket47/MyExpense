@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteExpense } from '../Redux/Slices';
 import HomeHader from '../Compooents/HomeHader';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import TranCard from '../Compooents/TranCard';
 
 const Home = ({ navigation }) => {
   const data = useSelector(state => state.app.expense);
@@ -30,7 +31,6 @@ const Home = ({ navigation }) => {
   };
 
   const renderExpenseItem = itemData => {
-    console.log(itemData.item.date, 'item,date');
     return (
       <TransactionCard
         amountcolor={itemData.item.category == 1 ? '#00A86B' : '#DE2402'}
@@ -69,7 +69,9 @@ const Home = ({ navigation }) => {
               onrightpress={notification}
             />
           </View>
-          <View>
+          <TranCard />
+
+          {/* <View>
             <TransactionCard
               name={'name'}
               time={'10am'}
@@ -82,7 +84,7 @@ const Home = ({ navigation }) => {
               renderItem={renderExpenseItem}
               keyExtractor={item => item.id}
             />
-          </View>
+          </View> */}
         </ScrollView>
       </SafeAreaView>
     </>

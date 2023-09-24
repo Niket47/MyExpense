@@ -10,6 +10,9 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
+  // const Fdate = date.map(item => item.date);
+  // console.log('object', Fdate);
+
   console.log(date, 'date');
 
   const data = [
@@ -23,7 +26,7 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
     amount: defaultvalues ? defaultvalues.amount : '',
     category: defaultvalues ? defaultvalues.category : '',
     description: defaultvalues ? defaultvalues.description : '',
-    // date: defaultvalues ? defaultvalues.date : date,
+    date: defaultvalues ? defaultvalues.date : date,
     // date: date,
     // id: Math.random(),
   });
@@ -42,7 +45,7 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
       description: inputvalues.description,
       amount: inputvalues.amount,
       category: inputvalues.category,
-      // date: inputvalues.date,
+      date: inputvalues.date,
       //   id: inputvalues.id,
     };
     // console.log(expenseData);
@@ -81,11 +84,11 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
         onChange={text => inputchangehandler('category', text.value)}
       />
       <Button title="Open" onPress={() => setOpen(true)} />
-      {/* <DatePicker
+      <DatePicker
         modal
         open={open}
         date={date}
-        format="DD-MM-YYYY"
+        // format="DD-MM-YYYY"
         onConfirm={date => {
           setOpen(false);
           setDate(date);
@@ -93,7 +96,7 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
         onCancel={() => {
           setOpen(false);
         }}
-      /> */}
+      />
 
       <CxTextInput
         placeholder={'Description'}

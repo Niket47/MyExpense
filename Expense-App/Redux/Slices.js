@@ -1,25 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-const obj = [
-  {
-    id: '11',
-    amount: '59.99',
-    category: '',
-    description: 'A pair of shoes',
-  },
-  {
-    id: '22',
-    name: 'A pair of asxzxs',
-    amount: '89.2911',
-    date: '2022-01-05',
-  },
-  {
-    id: '13',
-    name: 'hello',
-    amount: '59.9922',
-    category: '1',
-    description: 'A pair of assqww',
-  },
-];
+
 const initialState = {
   expense: [
     {
@@ -34,7 +14,7 @@ const initialState = {
       id: '22',
       name: 'A pair of asxzxs',
       amount: '89.2911',
-      date: '2022-02-14',
+      date: new Date('2022-03-18'),
       category: '2',
       description: 'A pair of shoes',
     },
@@ -43,7 +23,7 @@ const initialState = {
       name: 'A pair',
       amount: '59.9922',
       category: '1',
-      // date: new Date('2022-01-18'),
+      date: new Date('2022-01-18'),
       description: 'A pair of assqww',
     },
   ],

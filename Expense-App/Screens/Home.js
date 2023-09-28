@@ -23,6 +23,7 @@ const Home = ({ navigation }) => {
   const data = useSelector(state => state.app.expense);
   console.log(data, 'data');
   const dispatch = useDispatch();
+  
 
   const onDelete = itemData => {
     console.log(itemData.item.id, 'object-pressd');
@@ -51,19 +52,7 @@ const Home = ({ navigation }) => {
   const opendrawer = () => {};
   const notification = () => {};
 
-  const [items, setItems] = useState(data);
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const filterItemsByCategory = category => {
-    if (category === 'All') {
-      setItems(data); // Show all items when 'All' is selected
-    } else {
-      const filteredItems = data.filter(item => item.category == category);
-      setItems(filteredItems);
-    }
-    setSelectedCategory(category);
-  };
-  console.log(items, 'items');
+  
 
   return (
     <>
@@ -119,14 +108,8 @@ const Home = ({ navigation }) => {
           </View>
 
           <View>
-            {/* <TransactionCard
-              name={'name'}
-              time={'10am'}
-              description={'hello'}
-              transaction={'100'}
-            /> */}
             <FlatList
-              data={items}
+              data={data}
               scrollEnabled={false}
               renderItem={renderExpenseItem}
               keyExtractor={item => item.id}

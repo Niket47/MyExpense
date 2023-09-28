@@ -10,10 +10,26 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
 
-  // const Fdate = date.map(item => item.date);
-  // console.log('object', Fdate);
+  // const dateAsString = date.toISOString();
+  const moment = require('moment');
 
-  console.log(date, 'date');
+  const dates = para => {
+    const dateform = moment(date).format('DD,MM,YYYY');
+    const stringfy = JSON.stringify(dateform);
+    return stringfy;
+  };
+
+  console.log(dates('2000-01-01'), 'dates');
+
+  const myStringifiedDate = JSON.stringify(new Date('2000-01-01'));
+
+  const dateform = moment(date).format('DD,MM,YYYY');
+  const stringfy = JSON.stringify(dateform);
+  console.log(stringfy, 'ss');
+
+  console.log(dateform, 'date');
+
+  const onselectdate = () => {};
 
   const data = [
     { label: 'Income 1', value: '1' },
@@ -26,7 +42,7 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
     amount: defaultvalues ? defaultvalues.amount : '',
     category: defaultvalues ? defaultvalues.category : '',
     description: defaultvalues ? defaultvalues.description : '',
-    date: defaultvalues ? defaultvalues.date : date,
+    date: defaultvalues ? defaultvalues.date.toISOString() : date.toISOString(),
     // date: date,
     // id: Math.random(),
   });
@@ -84,15 +100,17 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
         onChange={text => inputchangehandler('category', text.value)}
       />
       <Button title="Open" onPress={() => setOpen(true)} />
+
       <DatePicker
         modal
         open={open}
         date={date}
         // format="DD-MM-YYYY"
-        onConfirm={date => {
-          setOpen(false);
-          setDate(date);
-        }}
+        // onConfirm={date => {
+        //   setOpen(false);
+        //   setDate(date);
+        // }}
+        onConfirm={onselectdate}
         onCancel={() => {
           setOpen(false);
         }}

@@ -54,20 +54,6 @@ const Transaction = () => {
   const opendrawer = () => {};
   const notification = () => {};
 
-  const [items, setItems] = useState(data);
-  // const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const filterItemsByCategory = category => {
-    if (category === 'All') {
-      setItems(data); // Show all items when 'All' is selected
-    } else {
-      const filteredItems = data.filter(item => item.category == category);
-      setItems(filteredItems);
-    }
-    // setSelectedCategory(category);
-  };
-  console.log(items, 'items');
-
   const filtercat = () => {
     setModalVisible(!isModalVisible);
   };
@@ -82,16 +68,6 @@ const Transaction = () => {
   const selectdate = () => {
     setOpen(true);
   };
-  const [bydates, setBydates] = useState(data);
-  console.log(bydates, 'bydates');
-
-  const filterdata = bydates.filter(item => {
-    const objdate = new Date(item.date);
-    const final = objdate.getMonth() === date.getMonth();
-    return final;
-  });
-
-  console.log(filterdata, 'filterdata');
 
   //  use Dropdown select for this by months here !!!
 
@@ -125,7 +101,7 @@ const Transaction = () => {
         />
 
         <FlatList
-          data={items}
+          data={data}
           scrollEnabled={false}
           renderItem={renderExpenseItem}
           keyExtractor={item => item.id}

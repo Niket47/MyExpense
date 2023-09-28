@@ -6,7 +6,7 @@ const initialState = {
       id: '11',
       name: 'hello',
       amount: '59.99',
-      date: 'Mon Dec 24 2018 10:33:30 GMT+0530 (India Standard Time)',
+      date: new Date('2022-03-18'),
       category: '1',
       description: 'A pair of shoes',
     },
@@ -23,7 +23,7 @@ const initialState = {
       name: 'A pair',
       amount: '59.9922',
       category: '1',
-      date: new Date('2022-01-18'),
+      date: '2023-01-18',
       description: 'A pair of assqww',
     },
   ],
@@ -35,12 +35,18 @@ const expenseSlice = createSlice({
   reducers: {
     addExpense: (state, action) => {
       const id = Math.random();
+
       state.expense.push({ ...action.payload, id: id });
     },
     deleteExpense: (state, action) => {
       state.expense = state.expense.filter(
         expense => expense.id !== action.payload,
       );
+    },
+    filterbycat: (state, action) => {
+      state.expense = state.expense.filter(items => {
+        items.category == action.payload;
+      });
     },
     updateExpense: (state, action) => {
       // console.log(action.payload, 'payload');

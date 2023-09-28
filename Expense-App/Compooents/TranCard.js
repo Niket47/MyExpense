@@ -57,6 +57,7 @@ const TranCard = ({
         </Text>
         <Text style={styles.des} numberOfLines={1}>
           {FormateDates(date)}
+          {/* {date} */}
         </Text>
       </View>
     </TouchableOpacity>

@@ -1,32 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { DUMMY_EXPENSES } from '../../Common/dummy';
 const initialState = {
-  expense: [
-    {
-      id: '11',
-      name: 'hello',
-      amount: '59.99',
-      date: new Date('2022-03-18'),
-      category: '1',
-      description: 'A pair of shoes',
-    },
-    {
-      id: '22',
-      name: 'A pair of asxzxs',
-      amount: '89.2911',
-      date: new Date('2022-03-18'),
-      category: '2',
-      description: 'A pair of shoes',
-    },
-    {
-      id: '13',
-      name: 'A pair',
-      amount: '59.9922',
-      category: '1',
-      date: '2023-01-18',
-      description: 'A pair of assqww',
-    },
-  ],
+  expense: [],
+  expense: DUMMY_EXPENSES,
 };
 
 const expenseSlice = createSlice({

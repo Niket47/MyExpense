@@ -34,7 +34,7 @@ const TranCard = ({
           name={iconname}
           size={40}
           // color="#fff"
-          color={iconname == 'up' ? '#DE2402' : '#00A86B'}
+          color={iconname == 'up' ? '#00A86B' : '#DE2402'}
           style={styles.image}
         />
       </View>
@@ -73,19 +73,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FCFCFC',
-    gap: 1,
-    paddingVertical: responsiveHeight(2),
-    paddingHorizontal: responsiveWidth(2.7),
-    marginHorizontal: responsiveWidth(1),
+    paddingVertical: responsiveHeight(0.8),
+    paddingHorizontal: responsiveWidth(1.8),
+    marginHorizontal: responsiveWidth(0.8),
     marginVertical: responsiveHeight(0.7),
     borderRadius: responsiveWidth(5),
   },
   imageview: {
-    flex: 1.5,
+    flex: 1.3,
     alignItems: 'center',
     justifyContent: 'center',
-    height: responsiveHeight(10), // % of window height
-    width: responsiveWidth(10), // % of window width
+    height: responsiveHeight(8.5), // % of window height
+    width: responsiveWidth(8), // % of window width
     marginRight: responsiveWidth(1.5),
     backgroundColor: '#EEE5FF',
     borderRadius: responsiveWidth(5),

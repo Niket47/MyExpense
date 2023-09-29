@@ -4,19 +4,18 @@ import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 
 const BottMode = ({
-  Pressedincome,
-  PressedExpense,
-  Pressedreset,
+  children,
   onBackdropPress,
   onBackButtonPress,
   onSwipeComplete,
   visible,
 }) => {
-//   const [isModalVisible, setModalVisible] = useState(false);
+  //   const [isModalVisible, setModalVisible] = useState(false);
 
-//   const toggleModal = () => {
-//     setModalVisible(!isModalVisible);
-//   };
+  //   const toggleModal = () => {
+  //     setModalVisible(!isModalVisible);
+  //   };
+
   return (
     <View style={styles.flexView}>
       {/* <View style={styles.btnContainer}>
@@ -38,23 +37,10 @@ const BottMode = ({
         animationOut="bounceOutDown"
         animationInTiming={900}
         animationOutTiming={500}
-        backdropTransitionInTiming={1000}
-        backdropTransitionOutTiming={500}
+        backdropTransitionInTiming={100}
+        backdropTransitionOutTiming={100}
         style={styles.modal}>
-        <View style={styles.modalContent}>
-          <Text style={styles.titlemodal}>Filter By</Text>
-          <View style={styles.btncont}>
-            <Button mode="outlined" onPress={Pressedincome}>
-              income
-            </Button>
-            <Button mode="outlined" onPress={PressedExpense}>
-              Expense
-            </Button>
-            <Button mode="outlined" onPress={Pressedreset}>
-              reset
-            </Button>
-          </View>
-        </View>
+        <View style={styles.modalContent}>{children}</View>
       </Modal>
     </View>
   );

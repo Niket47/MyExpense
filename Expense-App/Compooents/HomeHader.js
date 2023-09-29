@@ -3,29 +3,22 @@ import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const HomeHader = ({
-  select,
-  onselect,
   onleftpress,
   onrightpress,
   lefticonname,
-  leftcolor,
-  leftsize,
   iconname,
-  color,
-  size,
+  title,
 }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onleftpress}>
-        <AntDesign name={lefticonname} size={leftsize} color={leftcolor} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.centerbtn} onPress={onselect}>
-        <Text style={{ fontSize: 16, textTransform: 'capitalize' }}>
-          {select}
-        </Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={onleftpress}>
+          <AntDesign name={lefticonname} size={27} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.text}>{title}</Text>
+      </View>
       <TouchableOpacity onPress={onrightpress}>
-        <AntDesign name={iconname} size={size} color={color} />
+        <AntDesign name={iconname} size={27} color="#000" />
       </TouchableOpacity>
     </View>
   );
@@ -50,5 +43,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 40,
+  },
+  text: {
+    paddingLeft: 30,
+    fontSize: 17,
+    color: '#000',
   },
 });

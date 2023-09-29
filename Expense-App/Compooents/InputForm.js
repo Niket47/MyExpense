@@ -32,9 +32,9 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
   const onselectdate = () => {};
 
   const data = [
-    { label: 'Income 1', value: '1' },
-    { label: 'Expense 2', value: '2' },
-    { label: 'Transaction 3', value: '3' },
+    { label: 'Income 1', value: 'Income' },
+    { label: 'Expense 2', value: 'Expense' },
+    { label: 'Transaction 3', value: 'Transaction' },
   ];
 
   const [inputvalues, setInputvalues] = useState({
@@ -42,7 +42,7 @@ const InputForm = ({ onSubmit, defaultvalues }) => {
     amount: defaultvalues ? defaultvalues.amount : '',
     category: defaultvalues ? defaultvalues.category : '',
     description: defaultvalues ? defaultvalues.description : '',
-    date: defaultvalues ? defaultvalues.date.toISOString() : date.toISOString(),
+    date: defaultvalues ? defaultvalues.date : date.toISOString(),
     // date: date,
     // id: Math.random(),
   });

@@ -6,25 +6,32 @@ import {
   Text,
   StatusBar,
   View,
-  Image,
-  TouchableOpacity,
-  Button,
 } from 'react-native';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteExpense } from '../Redux/Slices';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import TranCard from '../Compooents/TranCard';
 import TransactionHeader from '../Compooents/TransactionHeader';
 import BottMode from '../Compooents/BottMode';
 import DatePicker from 'react-native-date-picker';
-import { FormateDates } from '../Compooents/Dates';
+import { Chip } from 'react-native-paper';
 
 const Transaction = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const data = useSelector(state => state.app.expense);
-  console.log(data, 'data');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+
   const dispatch = useDispatch();
+
+  const allcat = ['All', 'Income', 'Expense', 'Transaction'];
+
+  const filteredData =
+    selectedCategory === 'All'
+      ? data
+      : data.filter(item => item.category == selectedCategory);
+
+  console.log(data, 'data');
+  console.log(filteredData, 'flllll');
 
   const onDelete = itemData => {
     console.log(itemData.item.id, 'object-pressd');
@@ -38,8 +45,19 @@ const Transaction = () => {
   const renderExpenseItem = itemData => {
     return (
       <TranCard
-        amountcolor={itemData.item.category == 1 ? '#00A86B' : '#DE2402'}
-        iconname={itemData.item.category == 1 ? 'down' : 'up'}
+        amountcolor={
+          itemData.item.category === 'Income' ? '#00A86B' : '#DE2402'
+        }
+        // iconname={itemData.item.category == 'Income' ? 'up' : 'down'}
+        iconname={
+          itemData.item.category == 'Income'
+            ? 'up'
+            : itemData.item.category == 'Expense'
+            ? 'down'
+            : itemData.item.category == 'Transaction'
+            ? 'swap'
+            : 'pausecircleo'
+        }
         name={itemData.item.name}
         category={itemData.item.category}
         date={itemData.item.date}
@@ -76,14 +94,24 @@ const Transaction = () => {
       <ScrollView style={styles.scrollView}>
         <TransactionHeader onfilter={filtercat} onselectdate={selectdate} />
         <BottMode
-          Pressedincome={() => filterItemsByCategory(1)}
-          PressedExpense={() => filterItemsByCategory(2)}
-          Pressedreset={() => filterItemsByCategory('All')}
           onBackdropPress={() => setModalVisible(false)}
           onBackButtonPress={() => setModalVisible(false)}
           onSwipeComplete={toggleModal}
-          visible={isModalVisible}
-        />
+          visible={isModalVisible}>
+          <Text>Click Me</Text>
+          <View style={styles.btnview}>
+            {allcat.map(item => (
+              <Chip
+                style={{
+                  marginHorizontal: 2,
+                }}
+                key={item}
+                onPress={() => setSelectedCategory(item)}>
+                {item}
+              </Chip>
+            ))}
+          </View>
+        </BottMode>
 
         <DatePicker
           modal
@@ -101,7 +129,7 @@ const Transaction = () => {
         />
 
         <FlatList
-          data={data}
+          data={filteredData}
           scrollEnabled={false}
           renderItem={renderExpenseItem}
           keyExtractor={item => item.id}
@@ -120,5 +148,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 5,
+  },
+  btnview: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
   },
 });

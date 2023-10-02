@@ -13,7 +13,7 @@ export const DUMMY_EXPENSES = [
     name: 'Mens Casual Premium Slim Fit',
     amount: '59.9922',
     category: 'Transaction',
-    date: '2023-01-18',
+    date: new Date('2023-01-18'),
     description: 'abric is soft',
   },
   {
@@ -21,13 +21,13 @@ export const DUMMY_EXPENSES = [
     name: 'Mens Cotton Jacket',
     amount: '5119.9922',
     category: 'Transaction',
-    date: '2023-06-22',
+    date: new Date('2022-06-18'),
     description: 'Boat Neck V',
   },
   {
     id: 'e52',
     description: 'Short Sleeve',
-    amount: 18.59,
+    amount: 118.59,
     category: 'Transaction',
     date: new Date('2022-02-18'),
     name: 'USA or Imported',
@@ -36,7 +36,7 @@ export const DUMMY_EXPENSES = [
   {
     id: 'e51',
     description: 'Womens T Shirt',
-    amount: 18.59,
+    amount: 1228.59,
     category: 'Income',
     date: new Date('2022-02-18'),
     name: 'USA',
@@ -45,9 +45,9 @@ export const DUMMY_EXPENSES = [
   {
     id: '132',
     name: 'Casual Cotton',
-    amount: '259.9922',
+    amount: '25119.9922',
     category: 'Income',
-    date: '2023-01-9',
+    date: new Date('2023-01-9'),
     description: 'Rose Gold Plated Stainless Steel',
   },
   {
@@ -55,7 +55,7 @@ export const DUMMY_EXPENSES = [
     name: 'A Short Sleeve',
     amount: '5119.9922',
     category: 'Expense',
-    date: '2023-02-8',
+    date: new Date('2023-02-8'),
     description: 'SSD PLUS 1TB Internal SSD ',
   },
   {
@@ -72,7 +72,7 @@ export const DUMMY_EXPENSES = [
     name: 'Lock and Love',
     amount: 340.9922,
     category: 'Income',
-    date: '2023-01-18',
+    date: new Date('2023-01-18'),
     description: 'Gaming Drive Works with Playstation',
   },
   {
@@ -80,7 +80,7 @@ export const DUMMY_EXPENSES = [
     name: 'A bank',
     amount: '51219.9922',
     category: 'Expense',
-    date: '2023-01-18',
+    date: new Date('2023-01-18'),
     description: 'IPS Ultra-Thin',
   },
   {

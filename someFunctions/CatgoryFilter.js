@@ -13,6 +13,20 @@ const CatgoryFilter = () => {
     ? data.filter(item => item.category === selectedCategory)
     : data;
 
+  // const setbyMonths = months => {
+  //   return data.filter(item => {
+  //     const datewise =
+  //       moment(item.date).format('MMMM') == 'reset' ||
+  //       moment(item.date).format('MMMM') == months;
+
+  //     console.log(datewise, 'asassas');
+  //     return datewise;
+  //   });
+  // };
+
+  // const received = setbyMonths(sortbymonths);
+  // console.log(received, 'received');
+
   return (
     <View>
       <Text>Filter by Category:</Text>

@@ -6,6 +6,9 @@ import {
   Text,
   StatusBar,
   View,
+  Modal,
+  Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +18,8 @@ import TransactionHeader from '../Compooents/TransactionHeader';
 import BottMode from '../Compooents/BottMode';
 import DatePicker from 'react-native-date-picker';
 import { Chip } from 'react-native-paper';
+import moment from 'moment';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const Transaction = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -25,13 +30,38 @@ const Transaction = () => {
 
   const allcat = ['All', 'Income', 'Expense', 'Transaction'];
 
-  const filteredData =
-    selectedCategory === 'All'
-      ? data
-      : data.filter(item => item.category == selectedCategory);
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
-  console.log(data, 'data');
-  console.log(filteredData, 'flllll');
+  const [sortbymonths, setSortbymonths] = useState('reset');
+
+  const filterdatas = (months, catg) => {
+    return data.filter(item => {
+      const bycategory = catg == 'All' || item.category == catg;
+      // const datewise =
+      //   item.date == null || moment(item.date).format('MMMM') == months;
+      const daee =
+        sortbymonths == 'reset'
+          ? item
+          : moment(item.date).format('MMMM') == months;
+      return bycategory && daee;
+    });
+  };
+
+  const receivedss = filterdatas(sortbymonths, selectedCategory);
+  console.log(receivedss, 'receivedss');
 
   const onDelete = itemData => {
     console.log(itemData.item.id, 'object-pressd');
@@ -80,12 +110,11 @@ const Transaction = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-
   const selectdate = () => {
-    setOpen(true);
+    setDatemodal(true);
   };
+
+  const [datemodal, setDatemodal] = useState(false);
 
   //  use Dropdown select for this by months here !!!
 
@@ -113,23 +142,57 @@ const Transaction = () => {
           </View>
         </BottMode>
 
-        <DatePicker
-          modal
-          mode="date"
-          open={open}
-          date={date}
-          // format="DD-MM-YYYY"
-          onConfirm={date => {
-            setOpen(false);
-            setDate(date);
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-        />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={datemodal}
+          onRequestClose={() => {
+            setModalVisible(!datemodal);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text
+                style={{
+                  alignSelf: 'center',
+                  fontSize: 17,
+                  color: '#000',
+                  borderBottomColor: '#c2c2c2',
+                  borderBottomWidth: 1,
+                }}>
+                Select month
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingBottom: 20,
+                  paddingHorizontal: 5,
+                }}>
+                <Chip onPress={() => setSortbymonths('reset')}>Reset</Chip>
+                <TouchableOpacity onPress={() => setDatemodal(!datemodal)}>
+                  <Icon name="close" size={26} color="#000" />
+                </TouchableOpacity>
+              </View>
+
+              <ScrollView horizontal>
+                {months.map(item => (
+                  <Chip
+                    style={{
+                      marginHorizontal: 2,
+                    }}
+                    key={item}
+                    onPress={() => setSortbymonths(item)}>
+                    {item}
+                  </Chip>
+                ))}
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
 
         <FlatList
-          data={filteredData}
+          data={receivedss}
           scrollEnabled={false}
           renderItem={renderExpenseItem}
           keyExtractor={item => item.id}
@@ -153,5 +216,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    width: '90%',
+
+    backgroundColor: 'white',
+    borderRadius: 20,
+
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
   },
 });
